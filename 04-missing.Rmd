@@ -1,0 +1,58 @@
+# Missing Values
+
+```{r}
+library(readr)
+library(questionr)
+library(ggplot2)
+library(tidyr)
+library(scales)
+library(tibble)
+library(forcats)
+library(dplyr)
+```
+
+```{r}
+poms_dat <- readRDS("Data/poms_dat.RDS")
+vignette_dat <- readRDS("Data/vignette_dat.RDS")
+Baseline <- read_csv("Data/Baseline.csv")
+```
+
+Our data missing analysis involves 3 data sets: Mood data, Vignette data, and Baseline data. For all visualizations, we confirmed that they are suitible for all types of color blindess: protanomaly, deuteranomaly, tritanomaly, protanopia, deuteranopia, tritanopia, and blue cone monochromacy to effectively read the graph. We confirmed that the visual is accessible to these individuals by plugging our images into https://www.color-blindness.com/coblis-color-blindness-simulator/ and looking at it in all color blind modes.
+
+## Mood Data 
+There were no missing values for the mood data.
+```{r}
+freq.na(poms_dat) 
+```
+
+## Vignette Data 
+There were also no missing values for the vignette data.
+```{r}
+freq.na(vignette_dat)
+```
+
+## Baseline Data
+Baseline data did have some values missing.
+For column patterns, we can see that the top 3 variables have the most missing data: 'non_heteronormative_3_TEXT', 'gender_idetity_5_TEXT' and 'race_12_TEXT'
+This is quite reasonable since these variables are used to store the explanation part if people choose the 'other' option for variable 'non_heteronormative', 'gender_idetity' and 'race', respectively. Therefore, the reason why these 3 columns has leading missing values is people choose common options but rarely the 'other' option for 'non_heteronormative', 'gender_idetity' and 'race' variables.
+
+```{r}
+head(freq.na(Baseline),20)
+```
+
+For row patterns, with each row represents a student survey results, we found that there were 17 out of 201 students that only fill out a few of survey question and then quit. In fact, we decide to remove those who did not fill out at least 75% of the survey for data cleaning.
+```{r}
+rowSums(is.na(Baseline))
+```
+
+Here is a heatmap for row/column missing pattern, where x-axis for columns (survey questions), y-axis for row index (id for students)
+1.While yellow cells indicates missing data, we can see patterns of 3 vertical yellow lines (top 3 variables with missing values) and 17 horizontal yellow lines (17 students miss more than 75% questions)
+2.There is another pattern that students with id 31-73 have missing values for variable father_education and mother_education.
+
+```{r}
+myBaseline <- Baseline %>% rownames_to_column("id") %>% gather(key,value,-id,-sid) %>% mutate(key = factor(key)) %>% group_by(key) %>% ungroup()
+myBaseline$missing <- ifelse(is.na(myBaseline$value),"yes","no")
+colors <- c("#330066","#FFCC00")
+myBaseline$id <- factor(myBaseline$id, levels = unique(myBaseline$id))
+ggplot(myBaseline, aes(x = key, y = fct_rev(id))) + geom_tile(aes(fill = missing),color="gray")+scale_fill_manual(values=colors)+ ggtitle("Baseline Missing Data")+ theme(axis.text.x = element_text(angle = 90,vjust=0.5, hjust=1,size=5),axis.text.y = element_text(size=3))+ylab("Student ID")+xlab("Column Variables for Baseline") +theme(legend.position="bottom")
+```

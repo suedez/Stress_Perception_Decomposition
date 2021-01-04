@@ -1,0 +1,17 @@
+--- 
+title: "Stress Perception Decomposition"
+author: "Hongling Liu, Megan Goldring, Xinrui Zhang and Yuxin Zhou"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+---
+ 
+# Introduction
+
+In today’s fast-paced modern world, stress has a profound impact on people’s psychological and physical functioning. Research on stress and the factors that cause it has therefore ballooned in since the 1970’s, when psychologists starting applying animal theories of stress to humans. It is now known that individual difference factors impact stress; for example the same stressor will have a greater impact on neurotic relative to non-neurotic people. Research has also shown that stressor factors impact stress; for example interpersonal stressors are generally more stressful than work stressors. Finally, it has been shown that idiosyncratic factors of person and stressor impact stress; for example some people are always more stressed by home-based stressors while others are always more stressed by financial stressors. 
+
+Despite these advances in stress science, little is known about the relative importance of each of these factors. The main purpose of the study is therefore to conduct a crossed random effects model in order to decompose variability in stress responses into person, stressor, and person by stressor components. To do so, we asked multiple people to provide ratings of how ‘stressed’ and ‘overwhelmed’ they would be to each of 60 vignettes designed to range in ‘objective’ coder-rated stress. 
+
+Although the crossed random effect model is not part of our project for this class, we conducted exploratory visualization analyses to provide preliminary insight into key aspects of the study. Our main goals were to investigate 1) whether people’s subjective stress responses align with objective coder ratings of how severe those scenarios were, 2) whether the area of life that an event occurs in (i.e. work or home) influences people’s subjective stress responses, 3) reveal the importance of individual factors such as sex and income that may influence stress responses, 4) investigate whether there was systematic bias between the 1st and 2nd instance of the study (all participants responded twice one week apart—see Data Sources section) as well as the importance of siblings in stress, and 4) identify problematic vignettes (i.e. those that participants being hard to imagine themselves in).
+
+Together, we utilized lessons learned in class, including a targeted application of ridge plots, an insightful visualization with a mosaic plot, an exploratory use of parallel coordinate plots, and a practical application of box and whisker plots. We also made use of lessons on interactive data visualization by generating stacked bar charts to provide more flexibility for understanding one of our primary questions. 
+

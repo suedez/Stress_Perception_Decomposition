@@ -1,0 +1,15 @@
+Session,Content Classification (1-7),0,1,2,3,4
+1,Discrimination,2048,1913,538,624,529
+1,Finances,1556,2015,414,475,564
+1,Health/Accident,1028,1120,300,215,159
+1,Home,1580,2579,488,442,245
+1,Interpersonal Tension,1620,2007,357,293,119
+1,Misc,1849,2664,453,370,316
+1,Work/Education,1842,2946,417,399,362
+2,Discrimination,1736,1610,512,488,298
+2,Finances,1317,1738,362,394,317
+2,Health/Accident,798,982,265,170,107
+2,Home,1226,2275,450,327,108
+2,Interpersonal Tension,1359,1675,301,212,65
+2,Misc,1471,2339,398,259,177
+2,Work/Education,1559,2446,394,295,208

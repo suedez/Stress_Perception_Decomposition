@@ -1,0 +1,484 @@
+# Results
+
+```{r}
+#load necessary packages
+library(stringr) #for data cleaning
+library(tidyverse) #for data cleaning
+library(ggplot2) #for data visualization
+library(ggridges) #to make histogram-like ridge plots
+library(forcats) #for respecifying levels of a factor (i.e. the reorder() function)
+library(ggrepel) #to separate the labels of outliers in a box and whisker plot
+library("readr")
+library("htmlwidgets")
+library("GGally")
+library("vcd")
+library("readxl")
+library("RColorBrewer")
+```
+
+## Examination of Subjective Relative to Objective Stress
+
+One major question of interest in this study was whether participant's self-reports of how stressed they would be in each scenario corresponds with objective coder ratings of the severity of those scenarios, as coded by the Daily Inventory of Stressful Events (DISE) scheme (Midus, 1994). A priori, we expected that participant ratings of the stressfulness of the events would correspond with the objective coders' ratings of the severity of the events. Both the subjective responses and the objective codes ranged from 0=not at all to 4=extremely. 
+
+We were also interested in investing whether variance in subjective reports depended on the objective codes; for example, whether scenarios in the 2-3 range in objective severity were more variable while those in the high and low ranges of severity exhibited less variability. To explore these ideas, we build six histogram-style ridge plots, three for each session (session 1 or session 2 of the study) and one for each measure of stress (how 'stressed' did you feel? how 'overwhelmed' did you feel?) plus an aggregate score that is the mean of how 'stressed' and 'overwhelmed' participants felt they would be. 
+
+In the plots below, the x-axis is subjective ratings of stressed, overwhelmed, and the aggregate and the y-axis is the ID number for the vignettes. The y-axis is ordered such that vignettes at the top are the most objectively severe scenarios (4=extremely stressful) and decrease down the axis to the bottom, which contains vignettes rated as least objectively severe (0=not at all stressful). The objective severity of the scenarios is also color-coded, as depicted in a legend to the right of the plots. 
+
+Note that we also ensured that our visualization would allow individuals with protanomaly, deuteranomaly, tritanomaly, protanopia, deuteranopia, tritanopia, and blue cone monochromacy to effectively read the graph. We confirmed that the visual is accessible to these individuals by plugging our images into https://www.color-blindness.com/coblis-color-blindness-simulator/ and looking at it in all color blind modes. Although the color palette is not the prettiest, it is one that is accessible to all types of color blindness other than monochromacy because there is no way to use a colored visualization that will work for individuals with that kind of color blindness. In sum, we developed our own color palette that is as inclusive as possible.
+
+```{r, message=FALSE, results = FALSE}
+#read in subjective ratings of vignettes
+subj <- readRDS("Data/vignette_dat.RDS")
+
+#take out participant 130 because two participant's have that ID...
+el <- which(subj$ID == 130)
+subj <- subj[-el,]
+
+#separate into first and second session 
+subj1 <- subj[which(subj$Session==1),]
+subj2 <- subj[which(subj$Session==2),]
+
+#SESSION 1
+#subset and generate aggregate stressed score (aggregate of stressed and overwhelmed)
+s1 <- subj1[grep("stressed", subj1$vignette),] #subset down to 'stressed'
+s1$score <- as.numeric(s1$score) #change to numeric 
+o1 <- subj1[grep("Overwhelmed", subj1$vignette),]  #subset down to 'overwhelmed'
+o1$score <- as.numeric(o1$score) #change to numeric
+
+subj1 <- s1 #begin process of combining
+subj1$agg_stress <- rowMeans(cbind(s1$score, o1$score)) #combine scores
+
+subj1$stressed <- s1$score #create 'clearer' variable for self reported stress
+subj1$overwhelmed <- o1$score #create variable for overwhelmed
+
+#read in objective codes of vignettes
+obj <- read.csv("Data/objective codes.csv")
+#subjset down to vignette ID's and objective codes
+obj <- obj[,c(1,9)]
+#relabel column headings
+colnames(obj) <- c("vid", "severity")
+
+#merge together so that the subjective file has the objective codes 
+#create column with just vignette number in subjective file 
+regexp <- "[[:digit:]]+" #prepare regular expression
+subj1$vid <- as.numeric(str_extract(subj1$vignette, regexp)) #pull out numeric from the strings 
+
+subj1 <- merge(subj1, obj, by = "vid", all.x=TRUE) #merge together
+
+#order by objective severity
+subj1 <- subj1[order(subj1$severity),] 
+subj1$vid <- as.factor(subj1$vid)
+subj1$vid <- fct_inorder(subj1$vid)
+
+subj1$severity <- as.factor(subj1$severity) #change to class factor
+
+#plot
+#stressed
+ggplot(subj1, aes(x = stressed, y = vid, fill = severity)) + 
+  geom_density_ridges(stat="binline")+
+  ggtitle("Session 1 - Stressed")+
+  xlab("Subjective Stress")+
+  ylab("Vignette ID")+
+  labs(fill = "Objective Stress")+
+  scale_fill_manual(values=c("cadetblue3", "khaki", "mediumorchid2", "snow4","springgreen4", "saddlebrown"))+
+  theme_ridges(center = TRUE)+ theme(axis.text.y = element_text(size=5))+ theme(legend.position="bottom")
+
+#overwhelmed 
+ggplot(subj1, aes(x = overwhelmed, y = vid, fill = severity)) + 
+  geom_density_ridges(stat="binline")+
+  ggtitle("Session 1 - Overwhelmed")+
+  xlab("Subjective Overwhelmed")+
+  ylab("Vignette ID")+
+  labs(fill = "Objective Stress")+
+  scale_fill_manual(values=c("cadetblue3", "khaki", "mediumorchid2", "snow4","springgreen4", "saddlebrown"))+
+  theme_ridges(center = TRUE)+ theme(axis.text.y = element_text(size=5))+ theme(legend.position="bottom")
+
+#aggregate
+ggplot(subj1, aes(x = agg_stress, y = vid, fill = severity)) + 
+  geom_density_ridges(stat="binline")+
+  ggtitle("Session 1 - Aggregate Stressed and Overwhelmed")+
+  xlab("Subjective Stress")+
+  ylab("Vignette ID")+
+  labs(fill = "Objective Stress")+
+  scale_fill_manual(values=c("cadetblue3", "khaki", "mediumorchid2", "snow4","springgreen4", "saddlebrown"))+
+  theme_ridges(center = TRUE)+ theme(axis.text.y = element_text(size=5))+ theme(legend.position="bottom")
+
+#SESSION 2
+#subset and generate aggregate stressed score (aggregate of stressed and overwhelmed)
+s2 <- subj2[grep("stressed", subj2$vignette),] #subset down to 'stressed'
+s2$score <- as.numeric(s2$score) #change to numeric 
+o2 <- subj2[grep("Overwhelmed", subj2$vignette),]  #subset down to 'overwhelmed'
+o2$score <- as.numeric(o2$score) #change to numeric
+
+subj2 <- s2 #begin process of combining
+subj2$agg_stress <- rowMeans(cbind(s2$score, o2$score)) #combine scores
+
+subj2$stressed <- s2$score #create 'clearer' variable for self reported stress
+subj2$overwhelmed <- o2$score #create variable for overwhelmed
+
+#read in objective codes of vignettes
+obj <- read.csv("Data/objective codes.csv")
+#subjset down to vignette ID's and objective codes
+obj <- obj[,c(1,9)]
+#relabel column headings
+colnames(obj) <- c("vid", "severity")
+
+#merge together so that the subjective file has the objective codes 
+#create column with just vignette number in subjective file 
+regexp <- "[[:digit:]]+" #prepare regular expression
+subj2$vid <- as.numeric(str_extract(subj2$vignette, regexp)) #pull out numeric from the strings 
+
+subj2 <- merge(subj2, obj, by = "vid", all.x=TRUE) #merge together
+
+#order by objective severity
+subj2 <- subj2[order(subj2$severity),] 
+subj2$vid <- as.factor(subj2$vid)
+subj2$vid <- fct_inorder(subj2$vid)
+
+subj2$severity <- as.factor(subj2$severity) #change to class factor
+
+#plot
+#stressed
+ggplot(subj2, aes(x = stressed, y = vid, fill = severity)) + 
+  geom_density_ridges(stat="binline")+
+  ggtitle("Session 2 - Stressed")+
+  xlab("Subjective Stress")+
+  ylab("Vignette ID")+
+  labs(fill = "Objective Stress")+
+  scale_fill_manual(values=c("cadetblue3", "khaki", "mediumorchid2", "snow4","springgreen4", "saddlebrown"))+
+  theme_ridges(center = TRUE)+ theme(axis.text.y = element_text(size=5))+ theme(legend.position="bottom")
+
+#overwhelmed 
+ggplot(subj2, aes(x = overwhelmed, y = vid, fill = severity))+ 
+  geom_density_ridges(stat="binline")+
+  ggtitle("Session 2 - Overwhelmed")+
+  xlab("Subjective Stress")+
+  ylab("Vignette ID")+
+  labs(fill = "Objective Stress")+
+  scale_fill_manual(values=c("cadetblue3", "khaki", "mediumorchid2", "snow4","springgreen4", "saddlebrown"))+
+  theme_ridges(center = TRUE)+ theme(axis.text.y = element_text(size=5))+ theme(legend.position="bottom")
+
+#aggregate
+ggplot(subj2, aes(x = agg_stress, y = vid, fill = severity)) + 
+  geom_density_ridges(stat="binline")+
+  ggtitle("Session 2 - Aggregate Stressed and Overwhelmed")+
+  xlab("Subjective Stress")+
+  ylab("Vignette ID")+
+  labs(fill = "Objective Stress")+
+  scale_fill_manual(values=c("cadetblue3", "khaki", "mediumorchid2", "snow4","springgreen4", "saddlebrown"))+
+  theme_ridges(center = TRUE)+ theme(axis.text.y = element_text(size=5))+ theme(legend.position="bottom")
+```
+
+We have several key takeaways from these visualizations. All discussion refers to all three ways of operationalizing stress: how 'stressed', how 'overwhelmed', and the aggregate of how 'stressed' and 'overwhelmed' reported by the participants. 
+
+First, we see that participants generally report that they would be less stressed than expected by the objective coding scheme; many participants rate scenarios that are objectively a '1' as a '0', those that are objectively a '2' as a '1', and so on. However, the under-reporting is most severe for the low-range objective stressors (the 1's and 2's). At the same time, we do see the expected general increase in mean subjective ratings of stress across the objective range, with more objectively severe stressors being rated as more subjectively stressors. 
+
+Next, we observe less variability in the high and low ranges of the scale, particularly in the '0' range. This implies that participants generally perceive very non-severe and very severe stressors as consensually stressful (i.e. little disagreement about the stressfulness of these scenarios), while subjective interpretation and therefore variability emerges in the '2' and '3' range of the objective scale. We think this visualization does a nice job of laying out the correspondence between objetive coding of the stressors and subjective interpretations of them. 
+
+## Subjective Stress for Different Life Domains
+```{r include=FALSE}
+#Data setup block
+#NOTE THAT THE CODE SETUP HERE IS NECESSARY FOR BOTH THIS CODE CHUNK AND THE ONE THAT FOLLOWS. We put together the dataset in a way that whill work for both visualizations, the  mosaic and the parallel coordinate plots. 
+
+#read in data 
+poms_dat <- readRDS("Data/poms_dat.RDS")
+vignette_dat <- readRDS("Data/vignette_dat.RDS")
+Baseline <- read.csv("Data/Baseline.csv")
+Code = read_excel("Data/Coded Vignettes.xlsx", sheet = "Vignettes")
+
+#Join baseline data with vignette data. Also, generate composite scores for relationships with close ones (gsr) and loneliness (ucla).
+Baseline %>% mutate(relationship = (gsr_1 + gsr_2 + gsr_3 + gsr_4 + gsr_5 + gsr_6 + gsr_7 + gsr_8)/8) %>% 
+  mutate(loneliness =  (ucla2 + ucla3 +ucla4+ucla7+ucla8+ucla11+ucla12+ucla13+ucla14+ucla17+ucla18 + 45 - (ucla1 +ucla5+ucla6+ucla9+ucla10+ucla15+ucla16+ucla19+ucla20))/20) %>%
+  select(sid, sex_assignment, household_income, relationship,loneliness) -> family
+colnames(family)[1] = "ID"
+vignette_dat$ID <- as.character(vignette_dat$ID)
+family$ID <- as.character(family$ID)
+vignette_family <- left_join(vignette_dat, family, by = "ID")
+
+#Change data types to what is needed in ggplot
+vignette_family$score <- as.numeric(vignette_family$score)
+vignette_family$vignette <- as.character(vignette_family$vignette)
+vignette_family$sex_assignment <- as.factor(vignette_family$sex_assignment)
+
+#Subset to the stressed and overwhelmed responses (for use in the plot below)
+Remain <- c()
+for (i in seq(1,nrow(vignette_family))){
+  if((str_detect(vignette_family$vignette[i], "stressed") == T) | (str_detect(vignette_family$vignette[i], "Overwhelmed") == T)){
+    Remain[i] = 1
+  }
+  else{
+    Remain[i] = 0
+  }
+}
+vignette_family$remain <- Remain
+vignette_family <- subset(vignette_family, vignette_family$remain == 1)
+
+#string name processing
+vignette_family$vignette  <- extract_numeric(vignette_family$vignette) #get vignette id's
+vignette_family$vignette <- as.character(vignette_family$vignette) #turn vignette id's to character
+
+#generate a unique record for each participant
+vignette_family %>% group_by(ID, vignette) %>% mutate(Score = mean(score)) %>% ungroup() -> v_family
+v_family <- v_family %>% distinct(ID , vignette,.keep_all = T)
+v_family$sex_assignment <- as.character(v_family$sex_assignment)
+v_family <- na.omit(v_family)
+v_family$vignette <- as.character(v_family$vignette)
+v_family$sex_assignment[v_family$sex_assignment == 1] <- "Female"
+v_family$sex_assignment[v_family$sex_assignment == 0] <- "Male"
+
+# separate continuouse variables into categorical variables (for coloring the parallel coordinates plot below)
+v_family$Relationship <- cut(v_family$relationship, 3, labels = c("not understanding","medium","close"))
+v_family$Household_income <- cut(v_family$household_income,3, labels = c("low","medium","high"))
+v_family %>% group_by(ID) %>% mutate(PeopleTotalScore = sum(Score)) %>% ungroup() -> v_family
+v_family$PeopleTotalScoreF <- cut(v_family$PeopleTotalScore, 3, labels = c("relaxed","medium","stressed"))
+v_family$Loneliness <- cut(v_family$loneliness, 3, labels = c("not_lonely", "medium", "lonely"))
+
+#label life domains of the vignettes
+colnames(Code)[1] <- "vignette"
+Code$vignette <- as.character(Code$vignette)
+colnames(Code)[4] <- "domain"
+Code$domain <- as.character(Code$domain)
+colnames(Code)[9] <- "severity"
+Code$severity <- as.factor(Code$severity)
+Code %>% select(vignette,domain, severity) -> code_selected
+
+code_selected$domain[code_selected$domain == 1] <- "Interpersonal Tension"
+code_selected$domain[code_selected$domain == 2] <- "Work/Education"
+code_selected$domain[code_selected$domain == 3] <- "Home"
+code_selected$domain[code_selected$domain == 4] <- "Finances"
+code_selected$domain[code_selected$domain == 5] <- "Health/Accident"
+code_selected$domain[code_selected$domain == 6] <- "Discrimination"
+code_selected$domain[code_selected$domain == 7] <- "Misc"
+
+v_domain <- left_join(v_family, code_selected, by = "vignette")
+#v_domain$father_education <- as.factor(v_domain$father_education)
+#v_domain$mother_education <- as.factor(v_domain$mother_education)
+v_domain$sex_assignment <- as.factor(v_domain$sex_assignment)
+v_domain$score <- as.factor(v_domain$score)
+v_domain$severity <-as.factor(v_domain$severity)
+v_domain$Loneliness <- as.factor(v_domain$Loneliness)
+
+```
+
+Another primary question was whether different life domains elicit relatively more or less stress. As coded by the two objective DISE coders, there were seven life domains: Discrimination events, Financial events, Interpersonal Tesnsion events, Work/Education events, Health/Accident Events, and Miscellaneous events. We chose to make a mosaic plot so that we could see the propotion of events in each domain as well as the relative amount of stress in each domain. 
+
+Once again, we ensured that these visualizations were color-blind accessible. However, this time we simply used different shades of green and plugged the mosaic into the color blind website sited above and ensured that individuals with all types of color blindness could read them. 
+
+```{r echo=FALSE}
+colors = c('#EBF7E3',
+          '#9BD770',
+          '#66B032',
+          '#375F1B',
+          '#1B3409')
+vcd::mosaic(score~ domain,v_domain, direction = c("v","h"),
+           highlighting_fill = colors,rot_labels=c(15,0,0,0),gp_labels = gpar(fontsize = 7),labeling_args = list(set_varnames = c(score="Subjective Stress", domain="Life Domains")),
+            main = "Subjective Stress vs. Life Domains")
+```
+
+The mosaic plot reveals several interesting trends. First, we see that there were relatively more work/education types of vignettes than the others. The least common type of vignette were the health/accident event. More interestingly, we can see that interpersonal tensions were the least stressful of all life domains, which is suprising given that prior work in this area has found interpersonal tensions to be the most, rather than least, stressful. We also see that financial events were deemed the most stressful. This may reflect the fact that the study was conducted during the COVID-19 pandemic, when financial sensitivity was high. It might also reflect the fact that most Columbia undergraduates are either relatively wealthy or relatively unwealthy (i.e. on scholarships) relative to the general population. These two types of financial circumstances might make financial stressors particularly problematic, as wealthy students would be concerned about their life changing to due to financial stressors (i.e one vignette descibes a call from a parent in which most family money as been lost) and unwealthy students might be particularly sensitive to dealing with financial hardships. It is also interesting to see that the discrimination scenarios were relativly well distributed. It might be that students who have experienced these types of events consider them to more or less stressful relative to students who have never experienced these types of events. With no a priori hypothesis, this is something that will be investigated in the formal analysis of this data. 
+
+## Subjective Stress and Individual Difference Factors 
+                                        
+Next, we investigate how people's baseline condition may impact their reactions to stressors. Data was collected on *sex assignment*, *household income*, *loneliness*, and *relationship with a people's close ones*. Our goal was to use parallel coordinate plots to investigate clustering patterns for each individual difference factor. *Sex assignment* is simply clustered as "Male" and "Female". The other three factors are separated in 3 levels. In these graphs, the parallel axes are ordered from objectively most severe to objectively least severe (i.e. those events rated as most stressful by the DISE coders are on the left, descending to the least stressful rated by objective coders on the right). For subjective stress, we averaged the scores from self reported 'stressed' and self reported 'overwhelmed'. Once again, we used color-blind appropriate colors using the color palette we designed ourselves.
+
+```{r echo=FALSE}
+v_domain %>% arrange(desc(severity)) %>%
+  select(ID,Score,vignette,Household_income,sex_assignment,Relationship) %>%
+  pivot_wider(names_from = vignette, values_from = Score) %>%
+  ggparcoord(columns = (5:60),scale = "globalminmax", alpha = 0.5,groupColumn = "sex_assignment",splineFactor = 10) + 
+  scale_color_manual(values = c("cadetblue3", "mediumorchid2")) + labs(title = "Grouped by Sex")+ theme(legend.position="bottom")+ theme(axis.text.x = element_text(size=5)) + labs(x = "Vignette ID - Ordered from Most to Least Objectively Stressful", y = "Subjective Stress")
+
+v_domain %>% arrange(desc(severity)) %>%
+  select(ID,Score,vignette,Household_income,Relationship,Loneliness) %>%
+  pivot_wider(names_from = vignette, values_from = Score) %>%
+  ggparcoord(columns = (5:60),scale = "globalminmax", alphaLines = 0.5,groupColumn = "Household_income",splineFactor = 10) + 
+  scale_color_manual(values = c("cadetblue3", "mediumorchid2", "khaki"))+ labs(title = "Grouped by Household Income")+ theme(legend.position="bottom")+ theme(axis.text.x = element_text(size=5))+ labs(x = "Vignette ID - Ordered from Most to Least Objectively Stressful", y = "Subjective Stress")
+
+v_domain %>% arrange(desc(severity)) %>%
+  select(ID,Score,vignette,Household_income,Relationship,Loneliness) %>%
+  pivot_wider(names_from = vignette, values_from = Score) %>%
+  ggparcoord(columns = (5:60),scale = "globalminmax", alphaLines = 0.5, groupColumn = "Loneliness",splineFactor = 10) + 
+  scale_color_manual(values = c("cadetblue3", "mediumorchid2", "khaki"))+ labs(title = "Grouped by Lonliness")+ theme(legend.position="bottom")+ theme(axis.text.x = element_text(size=5))+ labs(x = "Vignette ID - Ordered from Most to Least Objectively Stressful", y = "Subjective Stress")
+
+v_domain %>% arrange(desc(severity)) %>%
+  select(ID,Score,vignette,Household_income,Relationship,sex_assignment) %>%
+  pivot_wider(names_from = vignette, values_from = Score) %>%
+  ggparcoord(columns = (5:60),scale = "globalminmax", alphaLines = 0.5,groupColumn = "Relationship",splineFactor = 10) + 
+  scale_color_manual(values = c("cadetblue3", "mediumorchid2", "khaki"))+ labs(title = "Relationship with Close Ones")+ theme(legend.position="bottom")+ theme(axis.text.x = element_text(size=5))+ labs(x = "Vignette ID - Ordered from Most to Least Objectively Stressful", y = "Subjective Stress")
+
+```
+
+One main takeaway from these visualizations is that vignettes objectively coded as more stressful (those on the left) incited higher subjective stress reactions than those objectively coded as less stressful (those on the right) We found less interesting trends along individual difference factors than expected. The only noticable clustering pattern we see is the one with *sex assignment*. It shows that males are more likely to state that they are less responsive than women in those vignettes with higher objective stress. And overall, females present more subjective stress than males. Other three fatcors present no evident impact on people's subjective ratings. This is interesting in it's own right, as psychological theory would predict that lower income people are consistently more reactive, that lonely people would be consistently more reactive, and that those with more close relationships would be less reactive. 
+
+## Subjective Stress in the 1st Versus 2nd Session and the Relation Between Number of Siblings and Subjective Stress
+
+An old area of psychological research associates birth order with stress reactivity. Although not an active area of research before, early findings suggested that those with more siblings should be generally less stress reactive than those with few siblings. To reinvigorate these areas of study, we investigated how the number of siblings may affect students' stress levels in different life domains Since we have less than five percent of people with 4 or more siblings, we decided to conclude the data based on four categories, each with "0", "1","2","3+" siblings. Finally, these are confimed to be color-blind accessible using our self-generated palette. 
+
+```{r}
+#Read in fresh datafiles
+subj <- readRDS("Data/vignette_dat.RDS") #read in subjective stress ratings
+el <- which(subj$ID == 130) #eliminate duplicate participants
+subj <- subj[-el,]
+obj <- read.csv("Data/objective codes.csv") #read in objective stress codes
+obj <- obj[,c(1,3,4,9)]
+colnames(obj) <- c("vid","broad","domain","severity") #relabel
+regexp <- "[[:digit:]]+"
+subj$vid <- as.numeric(str_extract(subj$vignette, regexp)) #label vignette id's
+
+#Merge everything together
+subj <- merge(x = subj, y = obj, by = "vid", all.x = TRUE)
+subj <- merge(x = subj, y = Baseline, by.x = "ID",by.y="sid", all.x = TRUE)
+subj <- subj[,c(1,2,3,4,5,6,7,8,189)] #subset to variables of interest
+subj$sibling_age <- tolower(subj$sibling_age)
+subj["sibling_count"] <- 0
+
+#Count up number of siblings
+subj$sibling_count <- str_count(subj$sibling_age, '\\d+')
+subj$sibling_count<-ifelse(grepl('me', subj$sibling_age),subj$sibling_count-1,subj$sibling_count) #substract 'me','only child' as 1
+subj$sibling_count<-ifelse(grepl('only child', subj$sibling_age),0,subj$sibling_count)
+
+#Label Life Domains
+subj$domain[subj$domain == 1] <- "Interpersonal Tension"
+subj$domain[subj$domain == 2] <- "Work/Education"
+subj$domain[subj$domain == 3] <- "Home"
+subj$domain[subj$domain == 4] <- "Finances"
+subj$domain[subj$domain == 5] <- "Health/Accident"
+subj$domain[subj$domain == 6] <- "Discrimination"
+subj$domain[subj$domain == 7] <- "Misc"
+
+#Count up number of siblings
+subj$score <- as.numeric(subj$score)
+subj <- subj[!is.na(subj$domain),]
+subj <- subj[!is.na(subj$score),]
+subj$sibling_count[is.na(subj$sibling_count)] <- 0
+subj["sibnum"] <- ""
+subj$sibnum<-ifelse(subj$sibling_count==0,"0",subj$sibnum)
+subj$sibnum<-ifelse(subj$sibling_count==1,"1",subj$sibnum)
+subj$sibnum<-ifelse(subj$sibling_count==2,"2",subj$sibnum)
+subj$sibnum<-ifelse(subj$sibling_count>=3,"3+",subj$sibnum)
+
+#Reformat to be in necessary data structure for ggplot
+temp = subj %>% group_by(domain,Session,sibnum)%>% mutate(Score = mean(score))
+
+ggplot(temp, aes(x=factor(sibnum),y=Score,group=Session,colour=Session))+
+  geom_point()+
+  geom_line()+
+  facet_wrap(~domain)+
+  xlab("Number of Siblings")+
+  ylab("Subjective Stress")+
+  scale_color_manual(values=c("springgreen4", "mediumorchid2"))+
+  ggtitle("Subjective Stress vs. Number of Slibings, faceted by Life Categories")+
+  theme(legend.position="bottom")
+
+
+```
+
+Based on this graph, we could a few really interesting foundings:
+
+Overall, we could observe a slight drop of stress level from Session 1 to Session 2, which may be caused by the time periods when the surveys were conducted. We also see an overall trend, where there is an increase of subjective stress when the the number of siblings increases from "1" to "2", and then an relatively bigger decline of subjective stress for students with 3+ siblings, especially on categories such that *Discrimination* and *Interpersonal Tension*. We suspect the reason behind this trend may be that students with more siblings receive less expectations from their parents, and they receive more love , support and care from all of their family members, where do not need to worry about finding new friends and they are more comfortable with themselves and less conscious of their beings. 
+
+For scenarios with *Discrimination* problems, when number of siblings increase to 3 and more, we can see an apparent tendency that people start to feel less stress. We suspect that it may cause by the shared consciousness and understanding we own with more siblings.
+
+For scenarios with *Interpersonal Tension* problem, we can see an extreme decline in the level of subjective stress when the number of siblings is more than 3. We suspect that this is due to the fact that students with more siblings may know better on how to communicate and negotiate with their friends since they have had their "practice" with their siblings, so they feel less stressed about it.
+
+For scenarios with *Finances* problems, we thought there will be large increase of stress level for people have more siblings due to more family burden. However, there is actually a drop of stress level, especially for session 2. 
+
+For scenarios with *Health/Accident* problems, we can see a clear decrease of stress level for both sessions when people have more siblings. We suspect that maybe this is because when you have more siblings, there will be more people care about your health problems and help you overcome any accidents, thus making people feel less stress.
+
+
+## Potential Vignettes Outliers
+
+We were also interested in visualizing the distribution of responses to the two questions asked for each scenario: 'have you experienced something like this before?' (1=yes) and 'was it easy to imagine yourself in this scenario?' (1=yes). We therefore calculated the proportion of participants who responded yes to each question and visualized a box and whisker plot of those proportions. We chose box and whisker plots because we are interested in finding outliers; in the next iteration of the study we will likely exclude scenarios that were extreme in terms of describing events that the sample hadn't experienced and being difficult to imagine oneself in the scenario.
+
+```{r, message=FALSE, results = FALSE}
+#read in subjective ratings of vignettes
+subj <- readRDS("Data/vignette_dat.RDS")
+
+#take out participant 130 because two participant's have that ID...
+el <- which(subj$ID == 130)
+subj <- subj[-el,]
+
+#create column with just vignette number
+regexp <- "[[:digit:]]+" #prepare regular expression
+subj$vid <- as.numeric(str_extract(subj$vignette, regexp)) #pull out numeric from the strings 
+
+#change score to character vector
+subj$score <- as.numeric(subj$score)
+
+#take out rows with NA
+subj <- na.omit(subj)
+
+#separate into first and second session 
+subj1 <- subj[which(subj$Session==1),]
+subj2 <- subj[which(subj$Session==2),]
+
+#SESSION 1
+#subset 
+e11 <- subj1[grep("experience_1", subj1$vignette),] #subset down to experience 1 (I have experienced something like this before)
+e12 <- subj1[grep("experience_2", subj1$vignette),] #subset down to experience 1 (It was easy to imagine myself in this situation)
+
+# Experienced Something Like This Before
+#get proportion yes per vignette
+e11.l <- split(e11, e11$vid) #turn to a list
+temp <- lapply(e11.l, function(x) sum(x$score)/nrow(x))
+e11.prop <- as.data.frame(do.call("rbind", temp)) #turn into a data frame
+e11.prop$vid <- as.numeric(names(e11.l)) #add back vignette ID
+e11.prop$session <- "Session 1"
+
+# Easy to Imagine Myself in this Situation
+e12.l <- split(e12, e12$vid) #turn to a list
+temp <- lapply(e12.l, function(x) sum(x$score)/nrow(x))
+e12.prop <- as.data.frame(do.call("rbind", temp)) #turn into a data frame
+e12.prop$vid <- as.numeric(names(e12.l)) #add back vignette ID
+e12.prop$session <- "Session 1"
+
+#SESSION 2
+#subset 
+e21 <- subj2[grep("experience_1", subj2$vignette),] #subset down to experience 1 (I have experienced something like this before)
+e22 <- subj2[grep("experience_2", subj2$vignette),] #subset down to experience 1 (It was easy to imagine myself in this situation)
+
+# Experienced Something Like This Before
+#get proportion yes per vignette
+e21.l <- split(e21, e21$vid) #turn to a list
+temp <- lapply(e21.l, function(x) sum(x$score)/nrow(x))
+e21.prop <- as.data.frame(do.call("rbind", temp)) #turn into a data frame
+e21.prop$vid <- as.numeric(names(e21.l)) #add back vignette ID
+e21.prop$session <- "Session 2"
+
+# Easy to Imagine Myself in this Situation
+e22.l <- split(e22, e22$vid) #turn to a list
+temp <- lapply(e22.l, function(x) sum(x$score)/nrow(x))
+e22.prop <- as.data.frame(do.call("rbind", temp)) #turn into a data frame
+e22.prop$vid <- as.numeric(names(e22.l)) #add back vignette ID
+e22.prop$session <- "Session 2"
+
+# Combine
+e1 <- rbind(e11.prop, e21.prop)
+e2 <- rbind(e12.prop, e22.prop)
+
+colnames(e1) <- c("proportion", "vid", "session")
+colnames(e2) <- c("proportion", "vid", "session")
+
+#set up code to label the outliers in the box and whisker plot
+is_outlier <- function(x) {
+  return(x < quantile(x, 0.25) - 1.5 * IQR(x) | x > quantile(x, 0.75) + 1.5 * IQR(x))
+}
+
+# Box & Whisker Plots
+ggplot(e1, aes(x = session, y = proportion)) + 
+  geom_boxplot() +
+  coord_flip() +
+  geom_text_repel(data = e1[is_outlier(e1$proportion),], aes(session, proportion, label = vid)) +
+  ggtitle("Have you experienced something like this before?")+
+  theme_classic()
+
+ggplot(e2, aes(x = session, y = proportion)) + 
+  geom_boxplot() +
+  coord_flip() +
+  geom_text_repel(data = e2[is_outlier(e2$proportion),], aes(session, proportion, label = vid)) +
+  ggtitle("Was it easy to imagine yourself in this scenario?")+
+  theme_classic()
+
+```
+
+These visualizations reveal several important things about the study. First, participants generally indicated that it was easy to imagine themselves in the scenarios (means for both session were above 90%), even though they hadn't necessarily been in situations exactly like them before (means for both sessions around 45%-50%). However, there were a few scenarios that participants found difficult to imagine: scenarios 165 and 48. In the next iteration of the study, we will likely remove these scenarios and replace them with situations that are more commonly experienced by undergraduate students.

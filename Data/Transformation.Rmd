@@ -1,0 +1,236 @@
+---
+title: "trans"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+#load necessary libraries
+library(tidyverse)
+
+#Read in the data
+
+cond1 <- read.csv("cond_1.csv")
+
+cond2 <- read.csv("cond_2.csv")
+
+cond3 <- read.csv("cond_3.csv")
+
+cond4 <- read.csv("cond_4.csv")
+
+cond5 <- read.csv("cond_5.csv")
+
+cond6 <- read.csv("cond_6.csv")
+
+cond7 <- read.csv("cond_7.csv")
+
+cond8 <- read.csv("cond_8.csv")
+
+cond9 <- read.csv("cond_9.csv")
+
+cond10 <- read.csv("cond_10.csv")
+
+#Eliminate unecessary rows and columns (i.e. ip address and rows with question labels)
+
+cond1 <- cond1[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond2 <- cond2[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond3 <- cond3[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond4 <- cond4[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond5 <- cond5[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond6 <- cond6[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond7 <- cond7[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond8 <- cond8[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond9 <- cond9[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+cond10 <- cond10[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+#re-label columns 
+
+cond1 <- plyr::rename(cond1, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond2 <- plyr::rename(cond2, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond3 <- plyr::rename(cond3, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond4 <- plyr::rename(cond4, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond5 <- plyr::rename(cond5, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond6 <- plyr::rename(cond6, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond7 <- plyr::rename(cond7, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond8 <- plyr::rename(cond8, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond9 <- plyr::rename(cond9, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+cond10 <- plyr::rename(cond10, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+#label condition
+
+cond1$Condition <- 1
+
+cond2$Condition <- 2
+
+cond3$Condition <- 3
+
+cond4$Condition <- 4
+
+cond5$Condition <- 5
+
+cond6$Condition <- 6
+
+cond7$Condition <- 7
+
+cond8$Condition <- 8
+
+cond9$Condition <- 9
+
+cond10$Condition <- 10
+
+#eliminate vignettes 6, 127, and 143 because something went wrong with those vignettes and we don't know what
+
+cond1 <- cond1[,-c(which(str_detect(colnames(cond1), "V6_")), which(str_detect(colnames(cond1), "V127_")), which(str_detect(colnames(cond1), "V143_")))]
+
+cond2 <- cond2[,-c(which(str_detect(colnames(cond2), "V6_")), which(str_detect(colnames(cond2), "V127_")), which(str_detect(colnames(cond2), "V143_")))]
+
+cond3 <- cond3[,-c(which(str_detect(colnames(cond3), "V6_")), which(str_detect(colnames(cond3), "V127_")), which(str_detect(colnames(cond3), "V143_")))]
+
+cond4 <- cond4[,-c(which(str_detect(colnames(cond4), "V6_")), which(str_detect(colnames(cond4), "V127_")), which(str_detect(colnames(cond4), "V143_")))]
+
+cond5 <- cond5[,-c(which(str_detect(colnames(cond5), "V6_")), which(str_detect(colnames(cond5), "V127_")), which(str_detect(colnames(cond5), "V143_")))]
+
+cond6 <- cond6[,-c(which(str_detect(colnames(cond6), "V6_")), which(str_detect(colnames(cond6), "V127_")), which(str_detect(colnames(cond6), "V143_")))]
+
+cond7 <- cond7[,-c(which(str_detect(colnames(cond7), "V6_")), which(str_detect(colnames(cond7), "V127_")), which(str_detect(colnames(cond7), "V143_")))]
+
+cond8 <- cond8[,-c(which(str_detect(colnames(cond8), "V6_")), which(str_detect(colnames(cond8), "V127_")), which(str_detect(colnames(cond8), "V143_")))]
+
+cond9 <- cond9[,-c(which(str_detect(colnames(cond9), "V6_")), which(str_detect(colnames(cond9), "V127_")), which(str_detect(colnames(cond9), "V143_")))]
+
+cond10 <- cond10[,-c(which(str_detect(colnames(cond10), "V6_")), which(str_detect(colnames(cond10), "V127_")), which(str_detect(colnames(cond10), "V143_")))]
+
+#separate poms measures and vignettes
+
+cond1_poms <- cond1[,c(4:23,259)]
+
+cond1_vign <- cond1[,c(4,5,37:259)]
+
+cond2_poms <- cond2[,c(4:23,259)]
+
+cond2_vign <- cond2[,c(4,5,37:259)]
+
+cond3_poms <- cond3[,c(4:23,259)]
+
+cond3_vign <- cond3[,c(4,5,37:259)]
+
+cond4_poms <- cond4[,c(4:23,259)]
+
+cond4_vign <- cond4[,c(4,5,37:259)]
+
+cond5_poms <- cond5[,c(4:23,259)]
+
+cond5_vign <- cond5[,c(4,5,37:259)]
+
+cond6_poms <- cond6[,c(4:23,259)]
+
+cond6_vign <- cond6[,c(4,5,37:259)]
+
+cond7_poms <- cond7[,c(4:23,259)]
+
+cond7_vign <- cond7[,c(4,5,37:259)]
+
+cond8_poms <- cond8[,c(4:23,259)]
+
+cond8_vign <- cond8[,c(4,5,37:259)]
+
+cond9_poms <- cond9[,c(4:23,259)]
+
+cond9_vign <- cond9[,c(4,5,37:259)]
+
+cond10_poms <- cond10[,c(4:23,259)]
+
+cond10_vign <- cond10[,c(4,5,37:259)]
+
+#make vignette dataset
+#merge together 
+
+dat <- dplyr::bind_rows(cond1_vign, cond2_vign)
+
+dat  <- dplyr::bind_rows(dat, cond3_vign)
+
+dat  <- dplyr::bind_rows(dat, cond4_vign)
+
+dat  <- dplyr::bind_rows(dat, cond5_vign)
+
+dat  <- dplyr::bind_rows(dat, cond6_vign)
+
+dat  <- dplyr::bind_rows(dat, cond7_vign)
+
+dat  <- dplyr::bind_rows(dat, cond8_vign)
+
+dat  <- dplyr::bind_rows(dat, cond9_vign)
+
+dat  <- dplyr::bind_rows(dat, cond10_vign)
+
+#eliminate pilot data and test runs 
+
+dat$ID <- as.numeric(dat$ID)
+
+dat <- dat[which(dat$ID < 999),]
+
+#wide to long
+
+datl <- tidyr::gather(dat, key = vignette, value = "score", 3:224)
+
+#save datafile
+
+saveRDS(datl, file = "vignette_dat.RDS")
+
+#make poms datafile
+#merge together 
+
+dat <- dplyr::bind_rows(cond1_poms, cond2_poms)
+
+dat  <- dplyr::bind_rows(dat, cond3_poms)
+
+dat  <- dplyr::bind_rows(dat, cond4_poms)
+
+dat  <- dplyr::bind_rows(dat, cond5_poms)
+
+dat  <- dplyr::bind_rows(dat, cond6_poms)
+
+dat  <- dplyr::bind_rows(dat, cond7_poms)
+
+dat  <- dplyr::bind_rows(dat, cond8_poms)
+
+dat  <- dplyr::bind_rows(dat, cond9_poms)
+
+dat  <- dplyr::bind_rows(dat, cond10_poms)
+
+#eliminate pilot data and test runs 
+
+dat$ID <- as.numeric(dat$ID)
+
+dat <- dat[which(dat$ID < 999),]
+
+#wide to long
+datl <- tidyr::gather(dat, key = item, value = "score", 3:20)
+
+#save datafile
+
+saveRDS(datl, file = "poms_dat.RDS")
+```
+

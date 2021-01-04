@@ -1,0 +1,11 @@
+# Data transformation
+
+There are four datafiles that we are working with: the objective code data file, the baseline data file, the mood measure data file (contains both session’s worth of data), and the vignette data file (also contains both session’s worth of data). 
+
+We cleaned the baseline data in excel prior to inputting it in R; there are only a few “clean ups” that needed to happen: 1) eliminate rows 2 and 3 that contained meta data about the survey, 2) eliminate columns 2-15 because they contained irrelevant variables (i.e. longitude and latitude at which the survey was taken), and 3) eliminate the column with participant birthdays, as this is personally identifiable information and we only received IRB approval to disseminate and post completely anonymized data. 
+
+The experimental data sessions were a little trickier. In order to partially randomize the order of the vignettes, participants were a priori randomly assigned to one of ten conditions, where all conditions contained the exact same vignettes but in a different order.  Therefore, the structure of each of these datasets is the same first few columns (those obtaining informed consent and the mood measures) followed by the vignette questions that were in different orders depending on the datafile. Because of this, we had to read in 10 separate datafiles, restructure them, and merge them. The codes are linked as below:
+
+https://github.com/graceliudata/Stress-Perception-Decomposition/blob/main/Data/Transformation.Rmd
+
+

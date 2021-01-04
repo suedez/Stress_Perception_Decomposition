@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Stress Perception Decomposition</title>
+  <meta name="description" content="Stress Perception Decomposition" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Stress Perception Decomposition" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Stress Perception Decomposition" />
+  
+  
+  
+
+<meta name="author" content="Hongling Liu, Megan Goldring, Xinrui Zhang and Yuxin Zhou" />
+
+
+<meta name="date" content="2020-12-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="data-sources.html"/>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SPD</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#mood-data"><i class="fa fa-check"></i><b>4.1</b> Mood Data</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#vignette-data"><i class="fa fa-check"></i><b>4.2</b> Vignette Data</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#baseline-data"><i class="fa fa-check"></i><b>4.3</b> Baseline Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#examination-of-subjective-relative-to-objective-stress"><i class="fa fa-check"></i><b>5.1</b> Examination of Subjective Relative to Objective Stress</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#subjective-stress-for-different-life-domains"><i class="fa fa-check"></i><b>5.2</b> Subjective Stress for Different Life Domains</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#subjective-stress-and-individual-difference-factors"><i class="fa fa-check"></i><b>5.3</b> Subjective Stress and Individual Difference Factors</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#subjective-stress-in-the-1st-versus-2nd-session-and-the-relation-between-number-of-siblings-and-subjective-stress"><i class="fa fa-check"></i><b>5.4</b> Subjective Stress in the 1st Versus 2nd Session and the Relation Between Number of Siblings and Subjective Stress</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#potential-vignettes-outliers"><i class="fa fa-check"></i><b>5.5</b> Potential Vignettes Outliers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stress Perception Decomposition</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Stress Perception Decomposition</h1>
+<p class="author"><em>Hongling Liu, Megan Goldring, Xinrui Zhang and Yuxin Zhou</em></p>
+<p class="date"><em>2020-12-17</em></p>
+</div>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<p>In today’s fast-paced modern world, stress has a profound impact on people’s psychological and physical functioning. Research on stress and the factors that cause it has therefore ballooned in since the 1970’s, when psychologists starting applying animal theories of stress to humans. It is now known that individual difference factors impact stress; for example the same stressor will have a greater impact on neurotic relative to non-neurotic people. Research has also shown that stressor factors impact stress; for example interpersonal stressors are generally more stressful than work stressors. Finally, it has been shown that idiosyncratic factors of person and stressor impact stress; for example some people are always more stressed by home-based stressors while others are always more stressed by financial stressors.</p>
+<p>Despite these advances in stress science, little is known about the relative importance of each of these factors. The main purpose of the study is therefore to conduct a crossed random effects model in order to decompose variability in stress responses into person, stressor, and person by stressor components. To do so, we asked multiple people to provide ratings of how ‘stressed’ and ‘overwhelmed’ they would be to each of 60 vignettes designed to range in ‘objective’ coder-rated stress.</p>
+<p>Although the crossed random effect model is not part of our project for this class, we conducted exploratory visualization analyses to provide preliminary insight into key aspects of the study. Our main goals were to investigate 1) whether people’s subjective stress responses align with objective coder ratings of how severe those scenarios were, 2) whether the area of life that an event occurs in (i.e. work or home) influences people’s subjective stress responses, 3) reveal the importance of individual factors such as sex and income that may influence stress responses, 4) investigate whether there was systematic bias between the 1st and 2nd instance of the study (all participants responded twice one week apart—see Data Sources section) as well as the importance of siblings in stress, and 4) identify problematic vignettes (i.e. those that participants being hard to imagine themselves in).</p>
+<p>Together, we utilized lessons learned in class, including a targeted application of ridge plots, an insightful visualization with a mosaic plot, an exploratory use of parallel coordinate plots, and a practical application of box and whisker plots. We also made use of lessons on interactive data visualization by generating stacked bar charts to provide more flexibility for understanding one of our primary questions.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="data-sources.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/graceliudata/Stress-Perception-Decomposition/edit/main/index.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/graceliudata/Stress-Perception-Decomposition/blob/main/index.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

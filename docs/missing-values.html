@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Missing Values | Stress Perception Decomposition</title>
+  <meta name="description" content="Chapter 4 Missing Values | Stress Perception Decomposition" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Missing Values | Stress Perception Decomposition" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Missing Values | Stress Perception Decomposition" />
+  
+  
+  
+
+<meta name="author" content="Hongling Liu, Megan Goldring, Xinrui Zhang and Yuxin Zhou" />
+
+
+<meta name="date" content="2020-12-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-transformation.html"/>
+<link rel="next" href="results.html"/>
+<script src="libs/header-attrs-2.4/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">SPD</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
+<li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing Values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#mood-data"><i class="fa fa-check"></i><b>4.1</b> Mood Data</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#vignette-data"><i class="fa fa-check"></i><b>4.2</b> Vignette Data</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#baseline-data"><i class="fa fa-check"></i><b>4.3</b> Baseline Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#examination-of-subjective-relative-to-objective-stress"><i class="fa fa-check"></i><b>5.1</b> Examination of Subjective Relative to Objective Stress</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#subjective-stress-for-different-life-domains"><i class="fa fa-check"></i><b>5.2</b> Subjective Stress for Different Life Domains</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#subjective-stress-and-individual-difference-factors"><i class="fa fa-check"></i><b>5.3</b> Subjective Stress and Individual Difference Factors</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#subjective-stress-in-the-1st-versus-2nd-session-and-the-relation-between-number-of-siblings-and-subjective-stress"><i class="fa fa-check"></i><b>5.4</b> Subjective Stress in the 1st Versus 2nd Session and the Relation Between Number of Siblings and Subjective Stress</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#potential-vignettes-outliers"><i class="fa fa-check"></i><b>5.5</b> Potential Vignettes Outliers</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
+<li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Stress Perception Decomposition</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="missing-values" class="section level1" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Missing Values</h1>
+<p>Our data missing analysis involves 3 data sets: Mood data, Vignette data, and Baseline data. For all visualizations, we confirmed that they are suitible for all types of color blindess: protanomaly, deuteranomaly, tritanomaly, protanopia, deuteranopia, tritanopia, and blue cone monochromacy to effectively read the graph. We confirmed that the visual is accessible to these individuals by plugging our images into <a href="https://www.color-blindness.com/coblis-color-blindness-simulator/" class="uri">https://www.color-blindness.com/coblis-color-blindness-simulator/</a> and looking at it in all color blind modes.</p>
+<div id="mood-data" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Mood Data</h2>
+<p>There were no missing values for the mood data.</p>
+<pre><code>##          missing %
+## ID             0 0
+## Session        0 0
+## vignette       0 0
+## score          0 0</code></pre>
+</div>
+<div id="vignette-data" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Vignette Data</h2>
+<p>There were also no missing values for the vignette data.</p>
+<pre><code>##          missing %
+## ID             0 0
+## Session        0 0
+## vignette       0 0
+## score          0 0</code></pre>
+</div>
+<div id="baseline-data" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Baseline Data</h2>
+<p>Baseline data did have some values missing.
+For column patterns, we can see that the top 3 variables have the most missing data: ‘non_heteronormative_3_TEXT’, ‘gender_idetity_5_TEXT’ and ‘race_12_TEXT’
+This is quite reasonable since these variables are used to store the explanation part if people choose the ‘other’ option for variable ‘non_heteronormative’, ‘gender_idetity’ and ‘race’, respectively. Therefore, the reason why these 3 columns has leading missing values is people choose common options but rarely the ‘other’ option for ‘non_heteronormative’, ‘gender_idetity’ and ‘race’ variables.</p>
+<pre><code>##                            missing   %
+## non_heteronormative_3_TEXT     201 100
+## gender_idetity_5_TEXT          199  99
+## race_12_TEXT                   197  98
+## mother_education                62  31
+## father_education                62  31
+## period                          58  29
+## gender_idetity                  47  23
+## contraceptive                   26  13
+## loc2                            20  10
+## household_income                20  10
+## loc1                            19   9
+## loc3                            19   9
+## coherence6                      19   9
+## sibling_age                     19   9
+## focus1                          18   9
+## focus2                          18   9
+## focus3                          18   9
+## focus4                          18   9
+## focus5                          18   9
+## focus6                          18   9</code></pre>
+<p>For row patterns, with each row represents a student survey results, we found that there were 17 out of 201 students that only fill out a few of survey question and then quit. In fact, we decide to remove those who did not fill out at least 75% of the survey for data cleaning.</p>
+<pre><code>##   [1]   4   4   4   6   5   4   5   4   4   4   4   4   4   4   4   5   5   4   4   4   4   4   4   3 179   6
+##  [27] 180   4   4   4   5 178   5   5   7   5   5   4   7   5   5   5   5   5   5   5   6 178   6   6   5   5
+##  [53]   5   5   6   5   4   6   5   7   6   5   5   5   5   6   5   5   8   5   7   5 179   3   3   6  75   3
+##  [79]   3   3   6   3   3   3   3   3 180   3 179   3   3   3   3   3   3   4   3   3 178 178   3   4   3   4
+## [105] 165   3   3   3   3   3   3   3   3   3   3 179   3   3 180   2   3   3   4   3   3   3   3   4   3   3
+## [131]   6 178   8   3   3 154   3   3   5 178   3   4   3   3   3   3   4   3   4   4   3   5   3   3   3   3
+## [157]   3   2   3   3   3   5   5   3   3   4   3   3   3   3 179   3   3   3   1   4   3   4   6   3   3   5
+## [183]   3   3   3   3   3   4 180   4   3   4   4   3   4   3   4   3   4   4   4</code></pre>
+<p>Here is a heatmap for row/column missing pattern, where x-axis for columns (survey questions), y-axis for row index (id for students)
+1.While yellow cells indicates missing data, we can see patterns of 3 vertical yellow lines (top 3 variables with missing values) and 17 horizontal yellow lines (17 students miss more than 75% questions)
+2.There is another pattern that students with id 31-73 have missing values for variable father_education and mother_education.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-transformation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/graceliudata/Stress-Perception-Decomposition/edit/main/04-missing.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/graceliudata/Stress-Perception-Decomposition/blob/main/04-missing.Rmd",
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+---
+author: "Hongling Liu, Xinrui Zhang, Megan Goldring, mrg2224, Yuxin Zhou"
+title: "EDAV Fall 2020 PSet 4"
+output: html_document
+---
+
+This assignment is designed to help you get started on the final project. Be sure to review the final project instructions (https://edav.info/project.html).
+    
+### 1. The Team
+
+[8 points]
+
+a) Who's on the team? (Include names and UNIs)
+*Hongling Liu, hl3418*
+*Xinrui Zhang, xz2976*
+*Megan Goldring, mrg2224*
+*Yuxin Zhou, yz3904*
+
+
+b) How do you plan to divide up the work? (Grading is on a group basis. The point of asking is to encourage you to think about this and design a plan.)
+
+1) Decide our target questions and the ways to solve those questions in a big picture: Every group member may propose 3 questions that might be explored from the data. We will discuss together and settle on up to 6 questions to work with. Then for each question, we will come up with 3 potential kinds of graphs that can be helpful to solve this question. 
+
+2) Data visualization and analysis: Each of us will do visualization for 1-2 questions, and write down what we can observe from the graphs.
+
+3) Problem-Solving: All of us will share our graphs, and findings according to the visualizations to each other. Then we draw conclusions to our target questions together given what we found.
+
+
+c) What is your plan for managing the git/GitHub workflow? That is, who will merge pull requests? How will you attempt to avoid conflicts? How will you communicate?
+
+1) Task Management: 
+For Coding part, we will try best to divide total work into independent tasks for each people, such that we can work tasks parallelly and independently. The state of one's tasks will not have any influence on others' tasks.
+
+2) GitHub workflow & Time Schedule: 
+We will create a branch for each of us, and also a main branch(5 branches in total). The main branch will be updated(merge from other branches) once a day. Hongling Liu will be responsible for merge pull request(might be changed later).
+
+scenario 1: We have a perfect task management, work for each people are independent. In this case, each of us should push our updated work to our own branch and give a pull request before 11:00am EST.During 11:00-12:00am EST, none of us should push new things or put new pull request. Meanwhile, Hongling will merge all pull request to the main branch. After 12:00am EST, we can pull from the main branch and merge the latest changes to our own branch, then continue our works, and don't forget to push and put pull request before the next 11:00am EST.
+
+scenario2: There exists some dependency between tasks, some tasks must be processed in particular order. In this case, those people involved should fully communicate to each other everyday, and merge their branches from the people in the first step to the people in the second step, and so on to the people in the last step.The last person will have all works from previous people. The last person finish her work, push to her branch, and put pull request before 11:00am EST, those people in previous step don't need to put a pull request. 
+
+### 2. The Questions
+
+[10 points]
+
+List three questions that you hope you will be able to answer from your research. (It's ok if these change as your work progresses.)
+
+a)  Which kind of people has the most severe reaction to stress.(May want to see top 15 people who have the greatest number of "extremely overwhelmed/extremely stressed" response, compare their baseline data to see if they have anything in common.)
+  
+  
+b)  Which kind of stress overwhelms people most.(May take top 10 vignette that receives greatest number of "extremely overwhelmed/extremely stressed" response, look at their construction code to see if any pattern here.)
+  
+  
+c)  Relationships between people's responses to different class of vignette.(E.g. If those people who respond badly to stress related to "Finance" content also respond badly to stress related to "Health/Accident" content ?)
+  
+
+### 3. GitHub repo
+
+[8 points]
+
+a) Set up your final project repository following the EDAVproject template. Provide the link to the repo.
+https://github.com/graceliudata/Stress-Perception-Decomposition
+
+b) Make sure that all team members have write access to the repository and have practiced making contributions. Provide a link to the contributors page of your repository showing that all team members have made contributions to the repo (Note that we do not have the ability to see who has write access, only contributors):
+
+https://github.com/graceliudata/Stress-Perception-Decomposition/graphs/contributors
+
+### 4. Data Sources
+
+This data comes from a study designed and run by Megan, who is also a PhD student in the Psychology Department. We confirmed with Professor Robbins that using this dataset is appropriate for the EDAV course. 
+
+The main purpose of the study was to conduct a crossed random effects model in order to decompose variability in stress perception into person, stressor, and person by stressor components. To do so, we asked multiple people to provide ratings of how 'stressed' and 'overwhelmed' they would be to each of 60 vignettes designed to range in 'objective' stress. Although the crossed random effect model is not part of our project for this class, visualizing and analyzing the raw data will be. 
+
+In generating the vignettes of stressful events, we used the Daily Inventory of Stressful Events coding scheme. This scheme trains objective coders to rate each vignette. Two coders were trained and rated each vignette according to the DISE scheme; specifically how 'objectively' severe the stressor is from 0=not at all to 4=extremely, the life category that the stressor falls into (i.e. home, work, etc), whether the stressor was chronic, whether it was a continuation of a stressor from a previous day, and whether the focus of involvement for the stressor was the self or someone else (i.e. a close family member).  
+
+To collect the data, 157 undergraduate students at Columbia participated for course credit. The study took place in 3 parts: 1) a 15-minute pre-study baseline survey, 2) study session one, and 3) study session two. The baseline survey assessed relevant psychological constructs such as loneliness, chronic stress experiences, and stress mindsets, in addition to demographic variables such as participant year in school, race, family income, etc. The second part consisted of meeting a trained research assistant online via Zoom. Participants first provided informed consent, then completed 3 brief mood questionnaires (Profile of Mood States; assessing current mood, mood during COVID, and mood in general in their life), followed by responding to each of the 60 vignettes. Upon hearing the research assistant read each vignette out loud, participants indicated: 1) how 'stressed' they would be from 0=not at all to 4=extremely, 2) how 'overwhelmed' they would be from 0=not at all to 4= extremely, 3) whether they had experienced something like the event described in the vignette with 1=yes and 0=no 4) whether it was easy to imagine themselves in the scenario described in the vignette with 1=yes and 0= no.  
+
+All data was therefore collected online via Qualtrics and it is all self-report survey data. The different data files contain different types of variables; either between-stressor measures of the vignettes (i.e. the objective codes), between-person measures of psychological traits and demographics (i.e. baseline data), or within-person stressor measures (i.e. the session 1 and session 2 data).  
+
+Due to the nature of the study (i.e. Columbia students filling out the surveys for course credit), there is very little missingness and few errors. The only errors that we did find (and not resolve!) was that three of the vignettes had more questions than they were supposed to. We opted to simply remove those vignettes from analysis for the purpose of this class. 
+
+### 5. Data Transformation
+There are four datafiles that we are working with: the objective code data file, the baseline data file, the mood measure data file (contains both session’s worth of data), and the vignette data file (also contains both session’s worth of data). 
+
+We cleaned the baseline data in excel prior to inputting it in R; there are only a few “clean ups” that needed to happen: 1) eliminate rows 2 and 3 that contained meta data about the survey, 2) eliminate columns 2-15 because they contained irrelevant variables (i.e. longitude and latitude at which the survey was taken), and 3) eliminate the column with participant birthdays, as this is personally identifiable information and we only received IRB approval to disseminate and post completely anonymized data. 
+
+The experimental data sessions were a little trickier. In order to partially randomize the order of the vignettes, participants were a priori randomly assigned to one of ten conditions, where all conditions contained the exact same vignettes but in a different order.  Therefore, the structure of each of these datasets is the same first few columns (those obtaining informed consent and the mood measures) followed by the vignette questions that were in different orders depending on the datafile. Because of this, we had to read in 10 separate datafiles, restructure them, and merge them. We used the following code to do so:
+```{r}
+
+#load necessary libraries
+library(tidyverse)
+
+# Read in the data
+cond1 <- read.csv("cond_1.csv")
+cond2 <- read.csv("cond_2.csv")
+cond3 <- read.csv("cond_3.csv")
+cond4 <- read.csv("cond_4.csv")
+cond5 <- read.csv("cond_5.csv")
+cond6 <- read.csv("cond_6.csv")
+cond7 <- read.csv("cond_7.csv")
+cond8 <- read.csv("cond_8.csv")
+cond9 <- read.csv("cond_9.csv")
+cond10 <- read.csv("cond_10.csv")
+
+#Eliminate unecessary rows and columns (i.e. ip address and rows with question labels)
+cond1 <- cond1[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond2 <- cond2[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond3 <- cond3[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond4 <- cond4[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond5 <- cond5[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond6 <- cond6[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond7 <- cond7[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond8 <- cond8[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond9 <- cond9[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+cond10 <- cond10[-c(1:2),-c(1,2,3,4,5,8,9,10,11,12,13,14,15,16,17)]
+
+#re-label columns 
+cond1 <- plyr::rename(cond1, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond2 <- plyr::rename(cond2, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond3 <- plyr::rename(cond3, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond4 <- plyr::rename(cond4, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond5 <- plyr::rename(cond5, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond6 <- plyr::rename(cond6, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond7 <- plyr::rename(cond7, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond8 <- plyr::rename(cond8, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond9 <- plyr::rename(cond9, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+cond10 <- plyr::rename(cond10, c("Duration..in.seconds."="Duration_sec", "Q304"="Consent", "Q289"="ID", "Q290"="Session"))
+
+#label condition
+cond1$Condition <- 1
+cond2$Condition <- 2
+cond3$Condition <- 3
+cond4$Condition <- 4
+cond5$Condition <- 5
+cond6$Condition <- 6
+cond7$Condition <- 7
+cond8$Condition <- 8
+cond9$Condition <- 9
+cond10$Condition <- 10
+
+#eliminate vignettes 6, 127, and 143 because something went wrong with those vignettes and we don't know what
+cond1 <- cond1[,-c(which(str_detect(colnames(cond1), "V6_")), which(str_detect(colnames(cond1), "V127_")), which(str_detect(colnames(cond1), "V143_")))]
+cond2 <- cond2[,-c(which(str_detect(colnames(cond2), "V6_")), which(str_detect(colnames(cond2), "V127_")), which(str_detect(colnames(cond2), "V143_")))]
+cond3 <- cond3[,-c(which(str_detect(colnames(cond3), "V6_")), which(str_detect(colnames(cond3), "V127_")), which(str_detect(colnames(cond3), "V143_")))]
+cond4 <- cond4[,-c(which(str_detect(colnames(cond4), "V6_")), which(str_detect(colnames(cond4), "V127_")), which(str_detect(colnames(cond4), "V143_")))]
+cond5 <- cond5[,-c(which(str_detect(colnames(cond5), "V6_")), which(str_detect(colnames(cond5), "V127_")), which(str_detect(colnames(cond5), "V143_")))]
+cond6 <- cond6[,-c(which(str_detect(colnames(cond6), "V6_")), which(str_detect(colnames(cond6), "V127_")), which(str_detect(colnames(cond6), "V143_")))]
+cond7 <- cond7[,-c(which(str_detect(colnames(cond7), "V6_")), which(str_detect(colnames(cond7), "V127_")), which(str_detect(colnames(cond7), "V143_")))]
+cond8 <- cond8[,-c(which(str_detect(colnames(cond8), "V6_")), which(str_detect(colnames(cond8), "V127_")), which(str_detect(colnames(cond8), "V143_")))]
+cond9 <- cond9[,-c(which(str_detect(colnames(cond9), "V6_")), which(str_detect(colnames(cond9), "V127_")), which(str_detect(colnames(cond9), "V143_")))]
+cond10 <- cond10[,-c(which(str_detect(colnames(cond10), "V6_")), which(str_detect(colnames(cond10), "V127_")), which(str_detect(colnames(cond10), "V143_")))]
+
+#separate poms measures and vignettes
+cond1_poms <- cond1[,c(4:23,259)]
+cond1_vign <- cond1[,c(4,5,37:259)]
+cond2_poms <- cond2[,c(4:23,259)]
+cond2_vign <- cond2[,c(4,5,37:259)]
+cond3_poms <- cond3[,c(4:23,259)]
+cond3_vign <- cond3[,c(4,5,37:259)]
+cond4_poms <- cond4[,c(4:23,259)]
+cond4_vign <- cond4[,c(4,5,37:259)]
+cond5_poms <- cond5[,c(4:23,259)]
+cond5_vign <- cond5[,c(4,5,37:259)]
+cond6_poms <- cond6[,c(4:23,259)]
+cond6_vign <- cond6[,c(4,5,37:259)]
+cond7_poms <- cond7[,c(4:23,259)]
+cond7_vign <- cond7[,c(4,5,37:259)]
+cond8_poms <- cond8[,c(4:23,259)]
+cond8_vign <- cond8[,c(4,5,37:259)]
+cond9_poms <- cond9[,c(4:23,259)]
+cond9_vign <- cond9[,c(4,5,37:259)]
+cond10_poms <- cond10[,c(4:23,259)]
+cond10_vign <- cond10[,c(4,5,37:259)]
+
+### make vignette dataset ###
+# merge together 
+dat <- dplyr::bind_rows(cond1_vign, cond2_vign)
+dat  <- dplyr::bind_rows(dat, cond3_vign)
+dat  <- dplyr::bind_rows(dat, cond4_vign)
+dat  <- dplyr::bind_rows(dat, cond5_vign)
+dat  <- dplyr::bind_rows(dat, cond6_vign)
+dat  <- dplyr::bind_rows(dat, cond7_vign)
+dat  <- dplyr::bind_rows(dat, cond8_vign)
+dat  <- dplyr::bind_rows(dat, cond9_vign)
+dat  <- dplyr::bind_rows(dat, cond10_vign)
+
+#eliminate pilot data and test runs 
+dat$ID <- as.numeric(dat$ID)
+dat <- dat[which(dat$ID < 999),]
+
+# wide to long
+datl <- tidyr::gather(dat, key = vignette, value = "score", 3:224)
+
+#save datafile
+saveRDS(datl, file = "vignette_dat.RDS")
+
+### make poms datafile ###
+# merge together 
+dat <- dplyr::bind_rows(cond1_poms, cond2_poms)
+dat  <- dplyr::bind_rows(dat, cond3_poms)
+dat  <- dplyr::bind_rows(dat, cond4_poms)
+dat  <- dplyr::bind_rows(dat, cond5_poms)
+dat  <- dplyr::bind_rows(dat, cond6_poms)
+dat  <- dplyr::bind_rows(dat, cond7_poms)
+dat  <- dplyr::bind_rows(dat, cond8_poms)
+dat  <- dplyr::bind_rows(dat, cond9_poms)
+dat  <- dplyr::bind_rows(dat, cond10_poms)
+
+#eliminate pilot data and test runs 
+dat$ID <- as.numeric(dat$ID)
+dat <- dat[which(dat$ID < 999),]
+
+# wide to long
+datl <- tidyr::gather(dat, key = item, value = "score", 3:20)
+
+#save datafile
+saveRDS(datl, file = "poms_dat.RDS")
+```
+
+
+
+### 6. Missing Values
+
+[8 points]
+
+Write a draft of the [Missing Values chapter](https://edav.info/project#report-format)
+
+`install.packages("questionr")`
+
+[8 points]
+```{r}
+library(readr)
+library(questionr)
+library(ggplot2)
+library(tidyr)
+library(scales)
+library(tibble)
+library(forcats)
+library(dplyr)
+```
+
+Write a draft of the [Missing Values chapter](https://edav.info/project#report-format)
+
+
+```{r}
+poms_dat <- readRDS("poms_dat.RDS")
+vignette_dat <- readRDS("vignette_dat.RDS")
+Baseline <- read_csv("Baseline.csv")
+```
+
+Our data missing analysis involves 3 data sets: Mood data, Vignette data and Baseline data.
+
+```{r}
+freq.na(poms_dat)
+freq.na(vignette_dat)
+```
+
+Among those 3 data sets, only Baseline data has different percentage of values missing.
+For column patterns, we can see that the top 3 variables have the most missing data: 'non_heteronormative_3_TEXT', 'gender_idetity_5_TEXT' and 'race_12_TEXT'
+This is quite reasonable since these variables are used to store the explanation part if people choose the 'other' option for variable 'non_heteronormative', 'gender_idetity' and 'race', respectively. Therefore, the reason why these 3 columns has leading missing values is people choose common options but rarely the 'other' option for 'non_heteronormative', 'gender_idetity' and 'race' variables.
+
+```{r}
+head(freq.na(Baseline),20)
+```
+
+For row patterns, with each row represents a student survey results, we found that there were 17 out of 201 students that only fill out a few of survey question and then quit. In fact, we decide to remove those who did not fill out at least 75% of the survey for data cleaning.
+```{r}
+rowSums(is.na(Baseline))
+```
+
+Here is a heatmap for row/column missing pattern, where x-axis for columns (survey questions), y-axis for row index (id for students)
+1.While yellow cells indicates missing data, we can see patterns of 3 vertical yellow lines (top 3 variables with missing values) and 17 horizontal yellow lines (17 students miss more than 75% questions)
+2.There is another pattern that students with id 31-73 have missing values for variable father_education and mother_education.
+
+```{r}
+myBaseline <- Baseline %>% rownames_to_column("id") %>% gather(key,value,-id,-sid) %>% mutate(key = factor(key)) %>% group_by(key) %>% ungroup()
+myBaseline$missing <- ifelse(is.na(myBaseline$value),"yes","no")
+colors <- c("#330066","#FFCC00")
+myBaseline$id <- factor(myBaseline$id, levels = unique(myBaseline$id))
+ggplot(myBaseline, aes(x = key, y = fct_rev(id))) + geom_tile(aes(fill = missing),color="gray")+scale_fill_manual(values=colors)+ ggtitle("Baseline missing data")+ theme(axis.text.x = element_text(angle = 90,vjust=0.5, hjust=1,size=5),axis.text.y = element_text(size=5))
+```

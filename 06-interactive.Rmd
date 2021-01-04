@@ -1,0 +1,19 @@
+# Interactive component
+
+One of the questions we’re interested in is how our students react to different types of content and what kinds of issues cause them more stress than others. We created two stacked bar charts to illustrate our findings:
+
+<iframe src="resources/total.html" width="800" height="500"></iframe>
+
+Based on our first stacked bar chart *Subjective Stress vs. Life Categories*, there are relatively less vignettes in Health/Accident than other categories, and we could tell that there are more vignettes in categories like *Work/Education*, *Discrimination* and *Misc*, and the survey results in Session 2 indicated an overall lower level of stress comparing to the results from Session 1, which may be effected by external factors such as the time period where our survey were conducted, since we conducted our first survey around the end of October where students seem to have higher level of stress on every categories of content, and when we did our second survey around the beginning of November. We suspect that midterms may have increased their overall level of stress and We will look closer this in the later paragraphs.
+
+It also seems that *Discrimination* and *Finances* categories has a larger percentage of students that have high level of stress, and to confirm our observation, we made the second bar charts *Subjective Stress vs. Life Categories (Percentage)* to capture the distribution of the subjective stress levels in each life category.
+
+<iframe src="resources/percentage.html" width="800" height="500"></iframe>
+
+Since we are interested in the relationship between *Subjective Stress* and *Life Categories*, we decided to sort the data by the most severe stress level and in a descending order. Through this graph, we can clearly see that:
+
+1. For content in regard to *Discrimination* and *Finances*, there are a larger portion of students that feel high level of stress. This founding confirmed our suspisions above and it also makes sense since college students are typically young adults that lack financial literacy and economic stability, and race has always been a sensitive issue that causes stress on people and especially young people.
+
+2. There is a larger portion of students that are indifferent about content (when stress severity = 0) related to *Interpersonal Tension* and *Health/Accident*, which also makes sense, considering that college students are typically in good health and rarely need to worry about complicated working relationships, or any relationships in general, so interpersonal tension and health may be least of their worries, comparing to other issues. However, it surprises me that there is also a larger portion of students that are indifferent about content related to *Discrimination*, which may indicate that some people may be less conscious about issues relating to race, while there are also a large percentage of people that are very conscious about that.
+
+3. Based on our first stacked bar chart *Subjective Stress vs. Life Categories*, we mentioned earlier that the survey results in Session 2 seems to reflect an overall lower level of stress comparing to the results from Session 1. Here, we can find an interesting twist that the position of *Health/Accident* and *Work/Education* swapped when sorting by the percentage of most severe level of subjective stress, which confirmed that our test results were effected by external factors, in our case the time period where our survey were conducted. Since we conducted the results from Session 1 were collected around midterm period, we could see an overall decrease of subjective stress levels in the survey results in Session 2, particularly on the midterm related categories -- *Work/Education*. Therefore, we could see that external events could also cause the fluctuation of stress level.
